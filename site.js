@@ -6,13 +6,13 @@ let mainHeader = document.getElementById("headerItemContainer");
 let selectedHeaderItem;
 // define header items
 let headerItems = [
-    { "name": "list", "link": "lists.html" },
+    { "name": "projects", "link": "lists.html" },
     { "name": "about", "link": "about.html" }
 ];
 // define function to assign to the event listener
 let clickFunction = function setHtmlOfID(id, headerItem, column) {
     let mainContent = document.getElementById(id);
-    mainContent.innerHTML = "<object data=\"" + headerItem.link + "\"></object>";
+    mainContent.innerHTML = "<object class=\"contentObject\" data=\"" + headerItem.link + "\"></object>";
     let headerLine = document.getElementById("headerLine");
     animateFollowLine(headerLine, column);
 };

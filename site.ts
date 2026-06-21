@@ -11,14 +11,14 @@ let headerItems:{
     link: string
 
 }[] = [
-    {"name":"list", "link":"lists.html"},
+    {"name":"projects", "link":"lists.html"},
     {"name":"about", "link":"about.html"}
 ]
 
 // define function to assign to the event listener
 let clickFunction = function setHtmlOfID(id:string, headerItem: {name:string, link:string}, column :string){
     let mainContent = document.getElementById(id) as HTMLElement;
-    mainContent.innerHTML = "<object data=\"" + headerItem.link + "\"></object>";
+    mainContent.innerHTML = "<object class=\"contentObject\" data=\"" + headerItem.link + "\"></object>";
     let headerLine = document.getElementById("headerLine") as HTMLElement;
 
     animateFollowLine(headerLine, column);

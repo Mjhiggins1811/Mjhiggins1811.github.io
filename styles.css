@@ -1,21 +1,4 @@
-.page{
-  margin: 10px;
-}
-
-.container{
-    display: flex;
-    flex-direction: column;
-}
-
-.header{
-  display: grid; 
-  grid-column-gap: 7px;
-  grid-template-rows: auto auto;
-  
-  justify-items: center;
-  
-  margin: 3px;
-}
+/* Header styles */
 
 .headerContainer{
   display: flex;
@@ -27,6 +10,16 @@
   margin: 0px;
   padding: 0px;
   box-shadow: 0px 3px 5px #12150f;
+}
+
+.header{
+  display: grid; 
+  grid-column-gap: 7px;
+  grid-template-rows: auto auto;
+  
+  justify-items: center;
+  
+  margin: 3px;
 }
 
 .headerLink{
@@ -49,14 +42,75 @@
   top: 0px;
 }
 
-.content{
-  scroll-behavior: auto;
-  display: grid;
-  grid-template-rows: auto;
-  justify-items: left;
+/* Page structure styles*/
+
+.container{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
+body{
+  border-style: none;
+  margin: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+html{
+  height: 100%;
+}
+
+.contentHTML{
+  height: 99%;
+
+}
+
+/* Content styles */
+
+
+.content{
+  justify-items: left;
+  height: 99%;
+}
+
+
+.contentObject{
+  margin-top: 10px;
+  width: 100%;
+  height: 99%;
+  scroll-behavior: auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.page{
+  margin: 10px;
+  width: 99%;
+}
+
+.pageContent{
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
+
+/* Text styles */
+
 p{
+    color: #ECDFCC;
+    font-family: 'Courier New', Courier, monospace;
+    text-wrap-mode: wrap;
+}
+
+h1{
+    color: #ECDFCC;
+    font-family: 'Courier New', Courier, monospace; 
+}
+
+h2{
     color: #ECDFCC;
     font-family: 'Courier New', Courier, monospace; 
 }
@@ -65,32 +119,45 @@ a{
     color: #b3aa9b;
 }
 
-body{
-    border-style: none;
-    margin: 0px;
-}
-
 /* unvisited link */
 a:link {
   color: #ECDFCC;
-  text-decoration: none;
 }
 
 /* visited link */
 a:visited {
   color: #ECDFCC;
-  text-decoration: none;
 }
 
 /* mouse over link */
 a:hover {
   color: #ECDFCC;
   font-weight: bolder;
-  text-decoration: none;
 }
 
 /* selected link */
 a:active {
   color: #ECDFCC;
-  text-decoration: none;
+}
+
+
+/* unvisited link */
+.headerLink:link {
+  color: #ECDFCC;
+}
+
+/* visited link */
+.headerLink:visited {
+  color: #ECDFCC;
+}
+
+/* mouse over link */
+.headerLink:hover {
+  color: #ECDFCC;
+  font-weight: bolder;
+}
+
+/* selected link */
+.headerLink:active {
+  color: #ECDFCC;
 }
