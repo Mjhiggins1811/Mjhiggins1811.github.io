@@ -2,10 +2,14 @@
 // get the header
 let mainHeader = document.getElementById("headerItemContainer") as HTMLElement;
 
+// variable to track the selected header
+let selectedHeaderItem: HTMLElement;
+
 // define header items
 let headerItems:{
     name: string,
     link: string
+
 }[] = [
     {"name":"list", "link":"lists.html"},
     {"name":"about", "link":"about.html"}
@@ -15,9 +19,42 @@ let headerItems:{
 let clickFunction = function setHtmlOfID(id:string, headerItem: {name:string, link:string}, column :string){
     let mainContent = document.getElementById(id) as HTMLElement;
     mainContent.innerHTML = "<object data=\"" + headerItem.link + "\"></object>";
-    let headerLine = document.getElementById("mainHeaderLine") as HTMLElement;
-    headerLine.style.gridColumn = column;
+    let headerLine = document.getElementById("headerLine") as HTMLElement;
+
+    animateFollowLine(headerLine, column);
+    
 }
+
+function animateFollowLine(line: HTMLElement, column: string){
+    
+    // get the starting position
+    const { top: top1, left: left1} = line.getBoundingClientRect();
+    let startingColumn = getComputedStyle(line).gridColumn;
+
+    // snap the line to the target grid column and get it's position
+    line.style.gridColumn = column;
+    const {top: top2, left: left2} = line.getBoundingClientRect();
+    // put the line back to where it was
+    line.style.gridColumn = startingColumn;
+    
+    line.style.transition = "0.5s";
+
+    // animate from the starting to the ending
+
+    // set a timer to *actually* move the line as soon as the amination is finished
+    setTimeout(() => {
+        line.style.transition = "auto";
+        line.style.gridColumn = column;
+        line.style.top = "0px";
+        line.style.left = "0px";
+    },
+    500)
+
+    // animate the line moving
+    line.style.left = (left2 - left1) + 'px';
+    line.style.top = (top2 - top1) + 'px';
+}
+
 
 // set the header item grid up with the right amount of columns
 let headerGrid = document.getElementById("headerItemContainer") as HTMLElement;
@@ -47,6 +84,11 @@ headerItems.forEach(element => {
     // add the click event
     newHeader.addEventListener("click", function(){
         clickFunction("mainContent", element, getComputedStyle(newHeader).gridColumn);
-        
+        selectedHeaderItem = newHeader;
     });
 });
+
+
+// set the first header
+selectedHeaderItem = document.getElementById(headerItems[0].name + "Header") as HTMLAnchorElement;
+selectedHeaderItem.click();

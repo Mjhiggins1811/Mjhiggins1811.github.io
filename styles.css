@@ -35,16 +35,18 @@
     text-decoration: none;
 }
 
-.headerLine{
+.gridHeaderLine{
+  margin-bottom: 10px;
+  grid-column: 1;
+  grid-row:  2;
   border-style: solid;
   border-width: 2px;
   border-color: #ECDFCC;
   width: 40px;
   border-radius: 100px;
-  margin-bottom: 10px;
-
-  grid-column: 1;
-  grid-row:  2;
+  position: relative;
+  left: 0px;
+  top: 0px;
 }
 
 .content{
