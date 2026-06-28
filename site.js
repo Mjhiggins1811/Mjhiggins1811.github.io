@@ -7,6 +7,7 @@ let selectedHeaderItem;
 // define header items
 let headerItems = [
     { "name": "projects", "link": "lists.html" },
+    { "name": "blog", "link": "blog.html" },
     { "name": "about", "link": "about.html" }
 ];
 // define function to assign to the event listener
@@ -25,7 +26,7 @@ function animateFollowLine(line, column) {
     const { top: top2, left: left2 } = line.getBoundingClientRect();
     // put the line back to where it was
     line.style.gridColumn = startingColumn;
-    line.style.transition = "0.5s";
+    line.style.transition = "0.25s";
     // animate from the starting to the ending
     // set a timer to *actually* move the line as soon as the amination is finished
     setTimeout(() => {
@@ -33,7 +34,7 @@ function animateFollowLine(line, column) {
         line.style.gridColumn = column;
         line.style.top = "0px";
         line.style.left = "0px";
-    }, 500);
+    }, 250);
     // animate the line moving
     line.style.left = (left2 - left1) + 'px';
     line.style.top = (top2 - top1) + 'px';

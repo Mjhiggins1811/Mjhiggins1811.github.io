@@ -12,6 +12,7 @@ let headerItems:{
 
 }[] = [
     {"name":"projects", "link":"lists.html"},
+    {"name":"blog", "link":"blog.html"},
     {"name":"about", "link":"about.html"}
 ]
 
@@ -37,7 +38,7 @@ function animateFollowLine(line: HTMLElement, column: string){
     // put the line back to where it was
     line.style.gridColumn = startingColumn;
     
-    line.style.transition = "0.5s";
+    line.style.transition = "0.25s";
 
     // animate from the starting to the ending
 
@@ -48,7 +49,7 @@ function animateFollowLine(line: HTMLElement, column: string){
         line.style.top = "0px";
         line.style.left = "0px";
     },
-    500)
+    250)
 
     // animate the line moving
     line.style.left = (left2 - left1) + 'px';
