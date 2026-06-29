@@ -1,4 +1,9 @@
+// get url
+let url = new URL(window.location.href);
+let page = url.searchParams.get('page');
+
 // === add header items ===
+
 // get the header
 let mainHeader = document.getElementById("headerItemContainer") as HTMLElement;
 
@@ -6,26 +11,39 @@ let mainHeader = document.getElementById("headerItemContainer") as HTMLElement;
 let selectedHeaderItem: HTMLElement;
 
 // define header items
-let headerItems:{
+let headerItemsTemplates:{
     name: string,
     link: string
-
 }[] = [
     {"name":"projects", "link":"lists.html"},
     {"name":"blog", "link":"blog.html"},
     {"name":"about", "link":"about.html"}
 ]
 
+// array for the HTML elements that will be made from the templates
+let headerElements:{
+    name: string,
+    element: HTMLElement
+}[] = [];
+
 // define function to assign to the event listener
 let clickFunction = function setHtmlOfID(id:string, headerItem: {name:string, link:string}, column :string){
+
     let mainContent = document.getElementById(id) as HTMLElement;
     mainContent.innerHTML = "<object class=\"contentObject\" data=\"" + headerItem.link + "\"></object>";
     let headerLine = document.getElementById("headerLine") as HTMLElement;
 
     animateFollowLine(headerLine, column);
+
+    // set the url arguments
+    page = headerItem.name;
+    url.searchParams.set('page', page);
+    // history.replaceState(history.state, '', url.href);
+    history.pushState({name:page}, '', url.href);
     
 }
 
+// function to animate the line below the headers moving in between grid cells
 function animateFollowLine(line: HTMLElement, column: string){
     
     // get the starting position
@@ -56,12 +74,35 @@ function animateFollowLine(line: HTMLElement, column: string){
     line.style.top = (top2 - top1) + 'px';
 }
 
+// function to load page
+function loadPage(){
+
+    // get url
+    url = new URL(window.location.href);
+    page = url.searchParams.get('page');
+
+    // if the url has a page argument, set that
+    if(page != ''){
+        // find the right header
+        headerElements.forEach(element => {
+            if(element.name == page){
+                selectedHeaderItem = element.element;
+                return;
+            }
+            })
+        }
+
+    // select the right page
+    selectedHeaderItem.click();
+
+}
 
 // set the header item grid up with the right amount of columns
 let headerGrid = document.getElementById("headerItemContainer") as HTMLElement;
 let gridPropertiesColumns: string = "";
 
-for(let i =0;i<headerItems.length;i++){
+// make the 'grid-template-columns for the 
+for(let i =0;i<headerItemsTemplates.length;i++){
     gridPropertiesColumns += " auto";
 }
 
@@ -69,7 +110,7 @@ headerGrid.style.gridTemplateColumns = gridPropertiesColumns;
 let gridColumnCounter = 1;
 
 // made the header elements with the links and name from the headerItems list
-headerItems.forEach(element => {
+headerItemsTemplates.forEach(element => {
     // make a header html and add it to the header
     let html: string = 
     "<a class=\"headerLink\" id=\""+ element.name +"Header\" style=\"cursor: pointer;\">" + element.name + "</a>";
@@ -87,9 +128,11 @@ headerItems.forEach(element => {
         clickFunction("mainContent", element, getComputedStyle(newHeader).gridColumn);
         selectedHeaderItem = newHeader;
     });
+
+    headerElements.push({"name":element.name, "element":newHeader});
 });
 
-
-// set the first header
-selectedHeaderItem = document.getElementById(headerItems[0].name + "Header") as HTMLAnchorElement;
-selectedHeaderItem.click();
+// default assignment
+selectedHeaderItem = headerElements[0].element;
+window.addEventListener('popstate', loadPage);
+loadPage();
