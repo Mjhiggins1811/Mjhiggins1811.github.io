@@ -2,6 +2,9 @@
 let url = new URL(window.location.href);
 let page = url.searchParams.get('page');
 
+// stupid flag to set/unset whether the click function should update the history or not
+let updateHistory:boolean = true;
+
 // === add header items ===
 
 // get the header
@@ -38,8 +41,10 @@ let clickFunction = function setHtmlOfID(id:string, headerItem: {name:string, li
     // set the url arguments
     page = headerItem.name;
     url.searchParams.set('page', page);
-    // history.replaceState(history.state, '', url.href);
-    history.pushState({name:page}, '', url.href);
+    if(updateHistory){
+        history.pushState({name:page}, '', url.href);
+    }
+    
     
 }
 
@@ -92,10 +97,22 @@ function loadPage(){
             })
         }
 
+    
     // select the right page
     selectedHeaderItem.click();
 
 }
+
+// function to reload the page when you go back
+function goBack(){
+    // disable history tracking
+    updateHistory = false;
+    // load the page
+    loadPage();
+    // re-enable the history tracking
+    updateHistory = true;
+}
+
 
 // set the header item grid up with the right amount of columns
 let headerGrid = document.getElementById("headerItemContainer") as HTMLElement;
@@ -134,5 +151,5 @@ headerItemsTemplates.forEach(element => {
 
 // default assignment
 selectedHeaderItem = headerElements[0].element;
-window.addEventListener('popstate', loadPage);
+window.addEventListener('popstate', () => setTimeout(goBack, 0));
 loadPage();
