@@ -2,7 +2,7 @@
 let url = new URL(window.location.href);
 let page = url.searchParams.get('page');
 
-// stupid flag to set/unset whether the click function should update the history or not
+// flag to set/unset whether the click function should update the history or not
 let updateHistory:boolean = true;
 
 // === add header items ===
@@ -30,7 +30,7 @@ let headerElements:{
 }[] = [];
 
 // define function to assign to the event listener
-let clickFunction = function setHtmlOfID(id:string, headerItem: {name:string, link:string}, column :string){
+function setHtmlOfID(id:string, headerItem: {name:string, link:string}, column :string){
 
     let mainContent = document.getElementById(id) as HTMLElement;
     mainContent.innerHTML = "<object class=\"contentObject\" data=\"" + headerItem.link + "\"></object>";
@@ -118,7 +118,7 @@ function goBack(){
 let headerGrid = document.getElementById("headerItemContainer") as HTMLElement;
 let gridPropertiesColumns: string = "";
 
-// make the 'grid-template-columns for the 
+// make the 'grid-template-columns for the header grid
 for(let i =0;i<headerItemsTemplates.length;i++){
     gridPropertiesColumns += " auto";
 }
@@ -142,7 +142,7 @@ headerItemsTemplates.forEach(element => {
 
     // add the click event
     newHeader.addEventListener("click", function(){
-        clickFunction("mainContent", element, getComputedStyle(newHeader).gridColumn);
+        setHtmlOfID("mainContent", element, getComputedStyle(newHeader).gridColumn);
         selectedHeaderItem = newHeader;
     });
 
@@ -151,5 +151,9 @@ headerItemsTemplates.forEach(element => {
 
 // default assignment
 selectedHeaderItem = headerElements[0].element;
+
+// add event listener for the back button (timeout to force the page to load before the goBack function is called as per mdn docs)
 window.addEventListener('popstate', () => setTimeout(goBack, 0));
+
+// load the page
 loadPage();

@@ -54,15 +54,18 @@ body{
   border-style: none;
   margin: 0px;
   width: 100%;
-  height: 98%;
+  height: 100%;
 }
 
 html{
-  height: 99%;
+  height: 100%;
 }
 
 .contentHTML{
-  height: 99%;
+  height: 100%;
+  overflow:auto;
+  scrollbar-color: #ECDFCC transparent;
+  scrollbar-width: thin;
 
 }
 
@@ -71,14 +74,13 @@ html{
 
 .content{
   justify-items: left;
-  height: 99%;
+  height: 100%;
 }
 
 
 .contentObject{
-  margin-top: 10px;
   width: 100%;
-  height: 99%;
+  height: 100%;
   scroll-behavior: auto;
   overflow: hidden;
   display: flex;
