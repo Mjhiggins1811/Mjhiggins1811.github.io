@@ -19,7 +19,7 @@ let headerItemsTemplates:{
     link: string
 }[] = [
     {"name":"projects", "link":"lists.html"},
-    {"name":"blog", "link":"blog.html"},
+    {"name":"words", "link":"blog.html"},
     {"name":"about", "link":"about.html"}
 ]
 
@@ -44,8 +44,6 @@ function setHtmlOfID(id:string, headerItem: {name:string, link:string}, column :
     if(updateHistory){
         history.pushState({name:page}, '', url.href);
     }
-    
-    
 }
 
 // function to animate the line below the headers moving in between grid cells
