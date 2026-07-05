@@ -2,7 +2,7 @@
 // get url
 let url = new URL(window.location.href);
 let page = url.searchParams.get('page');
-// stupid flag to set/unset whether the click function should update the history or not
+// flag to set/unset whether the click function should update the history or not
 let updateHistory = true;
 // === add header items ===
 // get the header
@@ -12,13 +12,13 @@ let selectedHeaderItem;
 // define header items
 let headerItemsTemplates = [
     { "name": "projects", "link": "lists.html" },
-    { "name": "blog", "link": "blog.html" },
+    { "name": "words", "link": "blog.html" },
     { "name": "about", "link": "about.html" }
 ];
 // array for the HTML elements that will be made from the templates
 let headerElements = [];
 // define function to assign to the event listener
-let clickFunction = function setHtmlOfID(id, headerItem, column) {
+function setHtmlOfID(id, headerItem, column) {
     let mainContent = document.getElementById(id);
     mainContent.innerHTML = "<object class=\"contentObject\" data=\"" + headerItem.link + "\"></object>";
     let headerLine = document.getElementById("headerLine");
@@ -29,7 +29,7 @@ let clickFunction = function setHtmlOfID(id, headerItem, column) {
     if (updateHistory) {
         history.pushState({ name: page }, '', url.href);
     }
-};
+}
 // function to animate the line below the headers moving in between grid cells
 function animateFollowLine(line, column) {
     // get the starting position
@@ -83,7 +83,7 @@ function goBack() {
 // set the header item grid up with the right amount of columns
 let headerGrid = document.getElementById("headerItemContainer");
 let gridPropertiesColumns = "";
-// make the 'grid-template-columns for the 
+// make the 'grid-template-columns for the header grid
 for (let i = 0; i < headerItemsTemplates.length; i++) {
     gridPropertiesColumns += " auto";
 }
@@ -101,13 +101,15 @@ headerItemsTemplates.forEach(element => {
     gridColumnCounter += 1;
     // add the click event
     newHeader.addEventListener("click", function () {
-        clickFunction("mainContent", element, getComputedStyle(newHeader).gridColumn);
+        setHtmlOfID("mainContent", element, getComputedStyle(newHeader).gridColumn);
         selectedHeaderItem = newHeader;
     });
     headerElements.push({ "name": element.name, "element": newHeader });
 });
 // default assignment
 selectedHeaderItem = headerElements[0].element;
+// add event listener for the back button (timeout to force the page to load before the goBack function is called as per mdn docs)
 window.addEventListener('popstate', () => setTimeout(goBack, 0));
+// load the page
 loadPage();
 //# sourceMappingURL=site.js.map
