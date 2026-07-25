@@ -19,7 +19,7 @@ let headerItemsTemplates:{
     link: string
 }[] = [
     {"name":"projects", "link":"lists.html"},
-    {"name":"words", "link":"blog.html"},
+    // {"name":"words", "link":"blog.html"}, Hiding this in master until it's done
     {"name":"about", "link":"about.html"}
 ]
 

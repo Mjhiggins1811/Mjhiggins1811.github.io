@@ -12,7 +12,7 @@ let selectedHeaderItem;
 // define header items
 let headerItemsTemplates = [
     { "name": "projects", "link": "lists.html" },
-    { "name": "words", "link": "blog.html" },
+    // {"name":"words", "link":"blog.html"}, Hiding this in master until it's done
     { "name": "about", "link": "about.html" }
 ];
 // array for the HTML elements that will be made from the templates
